@@ -30,8 +30,8 @@ class OrderSerializer(serializers.ModelSerializer):
             order = Order.objects.create(**validated_data,total_amount=total_amount)
 
             for item_data in items_data:
-                product = items_data['product']
-                quantity = items_data['quantity']
+                product = item_data['product']
+                quantity = item_data['quantity']
 
                 unit_price = product.price
                 total_price = unit_price * quantity
