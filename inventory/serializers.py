@@ -18,6 +18,14 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ['id','name','description','sku','price','supplier','stock','created_at','updated_at']
 
+class ProductCreateSerializer(serializers.ModelSerializer):
+    initial_stock = serializers.IntegerField(write_only=True,required=True,min_value=0)
+
+    class Meta:
+        model=Product
+        fields = ['name','description','sku','price','supplier','initial_stock']
+        
+
     def create(self, validated_data):
         initial_stock = validated_data.pop('initial_stock')
         product = Product.objects.create(**validated_data)
